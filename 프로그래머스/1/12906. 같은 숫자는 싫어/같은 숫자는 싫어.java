@@ -1,19 +1,18 @@
-//1. 주어진 배열 arr를 도는 반복문을 만든다
-//2. 반복문에서 요소에 값을 answer배열에 추가하고 진적 요소와 겹치면 추가하지 않는다.
-//3. answer 배열을 return 한다.
+// 0~9로 이루어진 수열에서 연속적으로 나타나는 숫자들을 제거해서 return 한다.
+// for문으로 배열을 돈다 -> 배열의 요소를 저장한다 -> 다음 요소와 저장되었던 전 요소를 비교한다 -> 숫자가 일치한다면 해당요소를 삭제한다.
 
 import java.util.*;
 
 public class Solution {
-    public List<Integer> solution(int []arr) {
-        List<Integer> answer = new ArrayList<>(); 
-        int a = -1;
-        
-        for(int i =0; i<arr.length; i++) {
-            if(a!=arr[i]) answer.add(arr[i]);
-            a = arr[i];
-        }
+    public int[] solution(int []arr) {
+        List<Integer> list = new ArrayList<>();
+        list.add(arr[0]);
 
-        return answer;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] != arr[i - 1]) {
+                list.add(arr[i]);
+            }
+        }
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
