@@ -1,36 +1,37 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
-    static int[] stair = new int[301];
+    static int[] s = new int[1000];
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        
         int n = sc.nextInt();
-        Main main = new Main();
-        stair[0] = 0;
         for (int i = 1; i <= n; i++) {
-            stair[i] = sc.nextInt();
+            s[i] = sc.nextInt();
         }
-        System.out.println(main.dp(n));
+        
+        System.out.println(dp(n));
     }
 
     public static int dp(int n) {
-        int[] dpt = new int[n + 3];
-        dpt[1] = stair[1];
-        dpt[2] = stair[1] + stair[2];
-        dpt[3] = (stair[1]>stair[2]) ? stair[3] + stair[1] : stair[3] + stair[2];
+        int[] dp = new int[n + 3];
+        dp[1] = s[1];
+        dp[2] = s[1] + s[2];
+        dp[3] = (s[1] > s[2]) ? s[3] + s[1] : s[3] + s[2];
         switch (n) {
             case 1:
-                return dpt[1];
+                return dp[1];
             case 2:
-                return dpt[2];
+                return dp[2];
             case 3:
-                return dpt[3];
+                return dp[3];
             default: {
                 for (int i = 4; i <= n; i++) {
-                    dpt[i] = (stair[i-1] + dpt[i-3] > dpt[i-2]) ? stair[i] + stair[i-1] + dpt[i-3] : stair[i] + dpt[i-2];
+                    dp[i] = (s[i-1] + dp[i-3] > dp[i-2]) ? s[i] + s[i-1] + dp[i-3] : s[i] + dp[i-2];
                 }
-                return dpt[n];
+                return dp[n];
             }
         }
     }
